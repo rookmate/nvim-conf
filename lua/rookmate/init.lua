@@ -1,4 +1,5 @@
 require 'rookmate.remap'
+require 'rookmate.lazy_install'
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
