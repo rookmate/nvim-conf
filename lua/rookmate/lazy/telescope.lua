@@ -102,4 +102,4 @@ return { -- Fuzzy Finder (files, lsp, etc)
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
   end,
-},
+}
