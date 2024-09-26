@@ -69,7 +69,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 25
+vim.opt.scrolloff = 8
 
 -- Set default tab size
 vim.opt.tabstop = 4
@@ -117,3 +117,23 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Move commands to be smart with braces and stuff
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- Append line below but keep cursor
+vim.keymap.set('n', 'J', 'mzJ`z')
+
+-- Force cursor in the middle when page jumping and searching
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
+-- Map PageDown and PageUp to behave like <C-d> and <C-u> with centering
+vim.keymap.set('n', '<PageDown>', '<C-d>zz')
+vim.keymap.set('n', '<PageUp>', '<C-u>zz')
+
+-- Clear buffer before pasting to not lose selection
+vim.keymap.set('x', '<leader>p', [["_dP]])
