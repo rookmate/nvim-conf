@@ -26,19 +26,24 @@ return {
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
-      solidity = { 'forge_fmt' }, -- Use the custom formatter for Solidity
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --
       -- You can use 'stop_after_first' to run the first available formatter from the list
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      solidity = { 'forge_fmt' },
     },
     formatters = {
       forge_fmt = {
-        command = 'forge', -- The command to run
-        args = { 'fmt', '$FILENAME' }, -- Pass the current filename as an argument
-        stdin = false, -- Whether to provide input via stdin (not required for forge fmt)
-        async = true, -- Run asynchronously
+        condition = function()
+          -- Check if .prettierrc exists in the project root
+          local prettier_config = vim.fn.findfile('.prettierrc', '.;')
+          -- Only use forge fmt if no .prettierrc exists
+          return prettier_config == ''
+        end,
+        command = 'forge',
+        args = { 'fmt' },
+        stdin = false,
       },
     },
   },
